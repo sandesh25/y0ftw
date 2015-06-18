@@ -15,9 +15,25 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView Login(@RequestParam String username, @RequestParam String password) {
-		User user = userService.login(username, password);
+		//User user = userService.login(username, password);
 		// return user != null ? new ModelAndView("user/HomePage", "user", user)
 		// : new ModelAndView("Error");
-		return new ModelAndView("Loggedin", "user", user);
+		//return new ModelAndView("/admin/AdminHome", "user", new User());
+		return new ModelAndView("hello", "user", new User());
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView Hello() {
+		//User user = userService.login(username, password);
+		// return user != null ? new ModelAndView("user/HomePage", "user", user)
+		// : new ModelAndView("Error");
+		//return new ModelAndView("/admin/AdminHome", "user", new User());
+		return new ModelAndView("adminHome", "user", new User());
+	}
+	
+	@RequestMapping(value = "/addNewStudent", method = RequestMethod.GET)
+	public String addStudent() {
+		return "addStudent";
+	}
+
 }
