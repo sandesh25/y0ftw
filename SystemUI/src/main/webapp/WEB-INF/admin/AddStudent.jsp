@@ -78,7 +78,7 @@ function sendData() {
     $.ajax({
         type: 'POST',
         url: 'http://localhost:9090/Server/restServices/StudentService/create',
-        data: JSON.stringify({"firstname":"sandesh"}),
+        data: formToJSON(),
         dataType: "json",
         contentType: 'application/json',
         success : function(data) {
@@ -96,8 +96,7 @@ function formToJSON() {
         "lastname": $('#lastname').val(),
         "gender": $('#gender').val(),
         "email": $('#email').val(),
-        "mobile": $('#mobile').val(),
-        "address": $('#address').val()
+        "mobile": $('#mobile').val()
         });
 }
 </script>

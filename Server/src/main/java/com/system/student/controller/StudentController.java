@@ -22,9 +22,9 @@ public class StudentController {
 
 	static final Logger logger = Logger.getLogger(StudentController.class);
 
-	@RequestMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/create",  method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Student addEmployee(@RequestBody Student student) {
-		return studentService.add(student);
+		return studentService.create(student);
 	}
 
 	@RequestMapping(value="/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

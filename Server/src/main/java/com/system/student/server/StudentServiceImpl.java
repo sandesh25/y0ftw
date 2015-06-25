@@ -18,5 +18,10 @@ public class StudentServiceImpl extends ObjectServiceImpl<Student> implements St
 	public Student add(Student newObject) {
 		return super.add(newObject);
 	}
+
+	@Override
+	public Student create(Student newObject) {
+		return super.add(newObject);
+	}
 	
 }
