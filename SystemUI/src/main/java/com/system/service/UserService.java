@@ -12,13 +12,25 @@ import com.system.service.ServiceCallerRest;
 
 public class UserService extends GenericRestService<User> {
 	public UserService() {
-		super("UserService");
+		super("StudentService");
 	}
 
+	/*
+	 * public User login(String username, String password) { List<NameValuePair>
+	 * urlParameters = new ArrayList<NameValuePair>(); urlParameters.add(new
+	 * BasicNameValuePair("username", username)); urlParameters.add(new
+	 * BasicNameValuePair("password", password)); String response =
+	 * ServiceCallerRest.getInstance().makePostServiceCall(serviceName +
+	 * "/login", urlParameters); if (response != null) { return
+	 * gson.fromJson(response, User.class); } else { return null; } }
+	 */
 	public User login(String username, String password) {
-		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("username", username));
-		urlParameters.add(new BasicNameValuePair("password", password));
-		return gson.fromJson(ServiceCallerRest.getInstance().makePostServiceCall(serviceName + "/login", urlParameters), User.class);
+		String content = "{\"username\":" + username + "\",\"password\":\"" + password + "\"}";
+		String response = ServiceCallerRest.getInstance().makePostServiceCall(serviceName + "/login", content);
+		if (response != null) {
+			return gson.fromJson(response, User.class);
+		} else {
+			return null;
+		}
 	}
 }

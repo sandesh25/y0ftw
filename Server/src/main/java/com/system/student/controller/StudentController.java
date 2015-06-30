@@ -37,4 +37,15 @@ public class StudentController {
 		return student;
  
 	}
+	
+	@RequestMapping(value="/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Student login(@PathVariable String name) {
+ 
+		Student student = new Student();
+		student.setFirstname("aslkgh");
+		student.setLastname("askg");
+		student.setEmail("asgg");
+		return student;
+ 
+	}
 }
