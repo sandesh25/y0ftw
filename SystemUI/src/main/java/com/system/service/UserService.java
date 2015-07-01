@@ -15,17 +15,20 @@ public class UserService extends GenericRestService<User> {
 		super("StudentService");
 	}
 
-	/*
-	 * public User login(String username, String password) { List<NameValuePair>
-	 * urlParameters = new ArrayList<NameValuePair>(); urlParameters.add(new
-	 * BasicNameValuePair("username", username)); urlParameters.add(new
-	 * BasicNameValuePair("password", password)); String response =
-	 * ServiceCallerRest.getInstance().makePostServiceCall(serviceName +
-	 * "/login", urlParameters); if (response != null) { return
-	 * gson.fromJson(response, User.class); } else { return null; } }
-	 */
 	public User login(String username, String password) {
-		String content = "{\"username\":" + username + "\",\"password\":\"" + password + "\"}";
+		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+		urlParameters.add(new BasicNameValuePair("username", username));
+		urlParameters.add(new BasicNameValuePair("password", password));
+		String response = ServiceCallerRest.getInstance().makePostServiceCall(serviceName + "/login", urlParameters);
+		if (response != null) {
+			return gson.fromJson(response, User.class);
+		} else {
+			return null;
+		}
+	}
+
+	public User login1(String username, String password) {
+		String content = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
 		String response = ServiceCallerRest.getInstance().makePostServiceCall(serviceName + "/login", content);
 		if (response != null) {
 			return gson.fromJson(response, User.class);
