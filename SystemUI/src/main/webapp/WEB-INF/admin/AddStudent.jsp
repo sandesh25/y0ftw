@@ -77,7 +77,7 @@
 function sendData() {
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:9090/Server/restServices/StudentService/create',
+        url: 'http://localhost:9090/Server/restServices/UserService/create',
         data: formToJSON(),
         dataType: "json",
         contentType: 'application/json',

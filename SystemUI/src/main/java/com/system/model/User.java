@@ -1,6 +1,5 @@
 package com.system.model;
 
-import com.system.model.MyType;
 
 public class User implements MyType {
 	private Long id;

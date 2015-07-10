@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.HttpMethod;
 
 import com.system.constants.ApplicationConstants;
+import com.system.utils.UIUtils;
 
 public class ServiceCallerRest {
 	private final static ServiceCallerRest instance = new ServiceCallerRest();
@@ -28,8 +30,10 @@ public class ServiceCallerRest {
 		try {
 			httpClient = HttpClientBuilder.create().build();
 			HttpPost httpPostRequest = new HttpPost(ApplicationConstants.SERVICE_URL + serviceURI);
+			httpPostRequest.addHeader("user-token", UIUtils.getUserToken() != null ? UIUtils.getUserToken() : "");
 			httpPostRequest.setEntity(new UrlEncodedFormEntity(urlParameters));
 			HttpResponse response = httpClient.execute(httpPostRequest);
+			setUserToken(response);
 			if (response.getStatusLine().getStatusCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
 			}
@@ -63,6 +67,7 @@ public class ServiceCallerRest {
 		try {
 			httpClient = HttpClientBuilder.create().build();
 			HttpPost httpPostRequest = new HttpPost(ApplicationConstants.SERVICE_URL + serviceURI);
+			httpPostRequest.addHeader("user-token", UIUtils.getUserToken() != null ? UIUtils.getUserToken() : "");
 			httpPostRequest.setEntity(new StringEntity(content, ContentType.APPLICATION_JSON));
 			HttpResponse response = httpClient.execute(httpPostRequest);
 			if (response.getStatusLine().getStatusCode() != 200) {
@@ -91,6 +96,7 @@ public class ServiceCallerRest {
 		try {
 			httpClient = HttpClientBuilder.create().build();
 			HttpGet httpGEtRequest = new HttpGet(ApplicationConstants.SERVICE_URL + serviceURI);
+			httpGEtRequest.addHeader("user-token", UIUtils.getUserToken() != null ? UIUtils.getUserToken() : "");
 			httpGEtRequest.addHeader("accept", ContentType.APPLICATION_JSON.toString());
 			HttpResponse response = httpClient.execute(httpGEtRequest);
 			if (response.getStatusLine().getStatusCode() != 200) {
@@ -116,5 +122,13 @@ public class ServiceCallerRest {
 
 	public static ServiceCallerRest getInstance() {
 		return instance;
+	}
+
+	private void setUserToken(HttpResponse response) {
+		Header userToken = response.getFirstHeader("user-token");
+		if (userToken != null) {
+			System.out.println("user-token === " + userToken.toString());
+			UIUtils.setUserToken(userToken.toString());
+		}
 	}
 }

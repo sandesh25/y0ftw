@@ -12,7 +12,7 @@ import com.system.service.ServiceCallerRest;
 
 public class UserService extends GenericRestService<User> {
 	public UserService() {
-		super("StudentService");
+		super("UserService");
 	}
 
 	public User login(String username, String password) {
@@ -30,6 +30,15 @@ public class UserService extends GenericRestService<User> {
 	public User login1(String username, String password) {
 		String content = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
 		String response = ServiceCallerRest.getInstance().makePostServiceCall(serviceName + "/login", content);
+		if (response != null) {
+			return gson.fromJson(response, User.class);
+		} else {
+			return null;
+		}
+	}
+
+	public User addNew(User user) {
+		String response = ServiceCallerRest.getInstance().makePostServiceCall(serviceName + "/create", gson.toJson(user));
 		if (response != null) {
 			return gson.fromJson(response, User.class);
 		} else {

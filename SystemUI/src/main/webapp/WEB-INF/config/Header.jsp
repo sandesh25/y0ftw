@@ -28,7 +28,7 @@
           <ul class="dropdown-menu">
           	<li><a href="#">Students</a></li>
             <li><a href="addNewStudent">Add new</a></li>
-            <li><a href="#">Update</a></li>
+            <li><a href="update">Update</a></li>
             <li><a href="#">Delete</a></li>
           </ul>
         </li>

@@ -18,5 +18,9 @@
 	<definition name="addStudent" extends="DefaultTemplate">
 		<put-attribute name="body" value="/WEB-INF/admin/AddStudent.jsp" />
 	</definition>
+	
+	<definition name="update" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/admin/Update.jsp" />
+	</definition>
 
 </tiles-definitions>

@@ -1,8 +1,8 @@
 package com.system.interceptors;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -10,7 +10,6 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.stereotype.Component;
 
 import com.system.aop.UtilityThreadLocal;
-import com.system.constants.ApplicationConstants;
 import com.system.exceptions.ValidityException;
 
 @Component("sessionValidator")
@@ -26,23 +25,19 @@ public class SessionValidator implements MethodInterceptor {
 	}
 
 	public void validateSession(HttpServletRequest request) {
-		validateSession(getSessionId(request));
+		String userToken = request.getHeader("user-token");
+		if (userToken == null) {
+			throw new ValidityException("Invalid Session!!");
+		}
+		//updateLastUsed(userToken, request);
 	}
 
-	public void validateSession(String sessionId) {
-		if (sessionId == null) {
-			throw new ValidityException("Invalid Session !!!");
+	private void updateLastUsed(String userToken, HttpServletRequest request) {
+		Long lastUsed = Long.valueOf(userToken.substring(userToken.lastIndexOf("|")));
+		if (new Date().getTime() - lastUsed > 5 * 60 * 1000) {
+			throw new ValidityException("Session Timeout!!");
+		} else {
+			
 		}
-	}
-
-	public static String getSessionId(HttpServletRequest servletRequest) {
-		if (servletRequest.getCookies() != null) {
-			for (Cookie cookie : servletRequest.getCookies()) {
-				if (cookie.getName().equals(ApplicationConstants.USER_TOKEN)) {
-					return cookie.getValue();
-				}
-			}
-		}
-		return servletRequest.getHeader(ApplicationConstants.USER_TOKEN);
 	}
 }
