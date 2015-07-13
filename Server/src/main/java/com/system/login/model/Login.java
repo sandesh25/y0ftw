@@ -1,5 +1,7 @@
 package com.system.login.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,43 +16,45 @@ public class Login {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column
-	private String username;
+	private Long userid;
 	@Column
-	private String token;
+	private Date loginTime;
 	@Column
-	private String lastused;
+	private Date lastUsed;
 
 	public Login() {}
+
+	public Login(Long userId, Date loginTime, Date lastUsed) {
+		this.userid = userId;
+		this.loginTime = loginTime;
+		this.lastUsed = lastUsed;
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Long getUserid() {
+		return userid;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public Date getLoginTime() {
+		return loginTime;
 	}
 
-	public String getToken() {
-		return token;
+	public void setLoginTime(Date loginTime) {
+		this.loginTime = loginTime;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public Date getLastUsed() {
+		return lastUsed;
 	}
 
-	public String getLastused() {
-		return lastused;
-	}
-
-	public void setLastused(String lastused) {
-		this.lastused = lastused;
+	public void setLastUsed(Date lastUsed) {
+		this.lastUsed = lastUsed;
 	}
 }

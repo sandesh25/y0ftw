@@ -6,20 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.system.service.ObjectService;
 
-public abstract class ObjectServiceImpl<T> implements ObjectService<T>, ApplicationContextAware {
-	@Autowired
-	protected EntityManagerFactory entityManagerFactory;
+public abstract class ObjectServiceImpl<T> implements ObjectService<T> {
+	@PersistenceContext(unitName = "TestPersistentUnit")
 	protected EntityManager entityManager;
 
 	public ObjectServiceImpl() {}
@@ -119,10 +114,5 @@ public abstract class ObjectServiceImpl<T> implements ObjectService<T>, Applicat
 	@Transactional
 	public void deleteAllObjects(List<String> keys, String keyName) {
 		entityManager.createQuery("delete from " + getObjectClass().getName() + " where " + keyName + " in(:keys)").setParameter("keys", keys).executeUpdate();
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.entityManager = entityManagerFactory.createEntityManager();
 	}
 }

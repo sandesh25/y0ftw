@@ -1,3 +1,4 @@
+<%@page import="com.system.utils.UIUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,7 +7,10 @@
 <title>Add Student</title>
 </head>
 <body>
-	
+<% 
+String token = UIUtils.getUserToken();
+System.out.println(" Token in  jsp " + token);
+%>
 <div class="container">
 
 <div class="page-header">
@@ -80,6 +84,7 @@ function sendData() {
         url: 'http://localhost:9090/Server/restServices/UserService/create',
         data: formToJSON(),
         dataType: "json",
+        headers: { 'user-token': <%="'" + token + "'"%> },
         contentType: 'application/json',
         success : function(data) {
             alert("success saveRule: " + data);

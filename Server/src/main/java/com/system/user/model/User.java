@@ -2,6 +2,8 @@ package com.system.user.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column
 	private String firstname;
@@ -33,10 +36,6 @@ public class User {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getFirstname() {

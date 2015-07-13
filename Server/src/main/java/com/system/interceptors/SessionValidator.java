@@ -29,15 +29,13 @@ public class SessionValidator implements MethodInterceptor {
 		if (userToken == null) {
 			throw new ValidityException("Invalid Session!!");
 		}
-		//updateLastUsed(userToken, request);
+		// updateLastUsed(userToken, request);
 	}
 
 	private void updateLastUsed(String userToken, HttpServletRequest request) {
 		Long lastUsed = Long.valueOf(userToken.substring(userToken.lastIndexOf("|")));
 		if (new Date().getTime() - lastUsed > 5 * 60 * 1000) {
 			throw new ValidityException("Session Timeout!!");
-		} else {
-			
-		}
+		} else {}
 	}
 }

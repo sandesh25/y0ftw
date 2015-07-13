@@ -1,5 +1,7 @@
 package com.system.user.server;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.system.service.impl.ObjectServiceImpl;
@@ -19,6 +21,7 @@ public class UserServiceImpl extends ObjectServiceImpl<User> implements UserServ
 	}
 
 	@Override
+	@Transactional
 	public User create(User newObject) {
 		return super.add(newObject);
 	}
