@@ -10,5 +10,5 @@ import com.system.user.model.User;
 public interface LoginService extends ObjectService<Login> {
 	User login(String username, String password);
 
-	boolean createSession(Login login);
+	void createSession(Login login);
 }

@@ -16,6 +16,8 @@ public class Login {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column
+	private String token;
+	@Column
 	private Long userid;
 	@Column
 	private Date loginTime;
@@ -56,5 +58,13 @@ public class Login {
 
 	public void setLastUsed(Date lastUsed) {
 		this.lastUsed = lastUsed;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

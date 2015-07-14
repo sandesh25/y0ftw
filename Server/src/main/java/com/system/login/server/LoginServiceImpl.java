@@ -1,5 +1,7 @@
 package com.system.login.server;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.system.login.model.Login;
@@ -20,7 +22,8 @@ public class LoginServiceImpl extends ObjectServiceImpl<Login> implements LoginS
 	}
 
 	@Override
-	public boolean createSession(Login login) {
-		return super.add(login) != null ? true : false;
+	@Transactional
+	public void createSession(Login login) {
+		entityManager.persist(login);
 	}
 }
