@@ -32,7 +32,7 @@ public class SessionValidator implements MethodInterceptor {
 
 	public void validateSession(HttpServletRequest request) {
 		String userToken = request.getHeader("user-token");
-		Login session = loginService.get("token", userToken);
+		Login session = loginService.get(userToken, "token");
 		if (userToken == null || session == null) {
 			throw new ValidityException("Invalid Session!!");
 		}
